@@ -39,3 +39,17 @@
 
 # debug information files
 *.dwo
+
+# JUCE project directories
+Builds/
+JuceLibraryCode/
+
+# Doxygen output directory
+html/
+
+# Doxygen log file
+*.log
+
+# Media directories
+media/flac/
+media/fraunhofer/
