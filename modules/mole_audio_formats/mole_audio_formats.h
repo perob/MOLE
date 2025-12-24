@@ -30,6 +30,15 @@
 
 #if JUCE_WINDOWS || DOXYGEN
 
+/** Config: MOLE_MEDIAFOUNDATION_HEADERS
+ 
+  Include Media Foundation headers and helper classes.
+  */
+#ifndef MOLE_MEDIAFOUNDATION_HEADERS
+#define MOLE_MEDIAFOUNDATION_HEADERS 0
+#endif
+
+#if MOLE_MEDIAFOUNDATION_HEADERS
 #include <mfapi.h>
 #include <mfidl.h>
 #include <mfreadwrite.h>
@@ -39,8 +48,10 @@
 #include <shobjidl.h>
 
 #include "native/System_windows.h"
-#include "native/ShellMetadata_windows.h"
 #include "native/ByteStream_windows.h"
+#endif
+
+#include "native/ShellMetadata_windows.h"
 #include "codecs/MP4AudioFormat.h"
 
 #endif // JUCE_WINDOWS

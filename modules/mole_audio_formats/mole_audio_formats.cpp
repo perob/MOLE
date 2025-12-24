@@ -8,6 +8,7 @@
 #error "Incorrect usage of MOLE headers"
 #endif
 
+#define MOLE_MEDIAFOUNDATION_HEADERS 1
 #include "mole_audio_formats.h"
 
 #if JUCE_WINDOWS
