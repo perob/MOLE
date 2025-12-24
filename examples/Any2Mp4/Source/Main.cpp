@@ -7,7 +7,6 @@
 #include <JuceHeader.h>
 
 using namespace mole;
-using namespace mole::Windows;
 
 int wmain (int argc, wchar_t* argv[])
 {
@@ -17,8 +16,11 @@ int wmain (int argc, wchar_t* argv[])
         return 1;
     }
 
-    juce::File inputFile (GetFullpath (argv[1]));
-    juce::File outputFile (GetFullpath (argv[2]));
+    juce::File inputFile (juce::File::getCurrentWorkingDirectory()
+           .getChildFile (juce::String (argv[1])));
+
+    juce::File outputFile (juce::File::getCurrentWorkingDirectory()
+           .getChildFile (juce::String (argv[2])));
 
     if (inputFile.existsAsFile() == false)
     {
