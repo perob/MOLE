@@ -8,4 +8,4 @@
 
 ## License
 
-Mozila Public Licens 2.0
+Mozilla Public License Version 2.0
