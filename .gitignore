@@ -44,6 +44,9 @@
 Builds/
 JuceLibraryCode/
 
+# Misc directory
+misc/
+
 # Doxygen output directory
 html/
 
