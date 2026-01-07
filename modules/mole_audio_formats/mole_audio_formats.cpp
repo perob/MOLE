@@ -23,8 +23,19 @@
 #include "native/ByteStreamInput_windows.h"
 #include "native/ByteStreamOutput_windows.h"
 #include "native/ByteStream_windows.cpp"
-#include "codecs/MP4AudioFormatReader.h"
-#include "codecs/MP4AudioFormatWriter.h"
+#include "native/Encoder_windows.h"
+#include "native/Decoder_windows.h"
+#include "native/Codec_windows.cpp"
+
+#include "codecs/AC3AudioFormat.cpp"
+#include "codecs/FLACAudioFormat.cpp"
+#include "codecs/MP1AudioFormat.cpp"
+#include "codecs/MP2AudioFormat.cpp"
+#include "codecs/MP3AudioFormat.cpp"
 #include "codecs/MP4AudioFormat.cpp"
+#include "codecs/WMA8AudioFormat.cpp"
+#include "codecs/WMA9AudioFormat.cpp"
+#include "codecs/WMALosslessAudioFormat.cpp"
+#include "codecs/WMAVoiceAudioFormat.cpp"
 
 #endif // JUCE_WINDOWS
