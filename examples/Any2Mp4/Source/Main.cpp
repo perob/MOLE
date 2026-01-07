@@ -8,19 +8,77 @@
 
 using namespace mole;
 
+int help()
+{
+    printf ("Transcode audio file formats.\n");
+    printf ("Usage: 'Any2Mp4 [OPTION] input output'\n");
+    printf ("Options:\n");
+    printf ("    --mp4    Transcode to MP4 file format with AAC audio (default).\n");
+    printf ("    --mp3    Transcode to MP3 file format with MPEG Layer 3 audio.\n");
+    printf ("    --mp2    Transcode to MP2 file format with MPEG Layer 2 audio.\n");
+    printf ("    --mp1    Transcode to MP1 file format with MPEG Layer 1 audio.\n");
+    printf ("    --ac3    Transcode to AC3 file format with Dolby AC-3 audio.\n");
+    printf ("    --flac   Transcode to MP4 file format with FLAC audio.\n");
+    printf ("    --wma8   Transcode to WMA file format with Windows Media Audio 8 audio.\n");
+    printf ("    --wma9   Transcode to WMA file format with Windows Media Audio 9 audio.\n");
+    printf ("    --wmal   Transcode to WMA file format with Windows Media Audio Lossless audio.\n");
+    printf ("    --wmsp   Transcode to WMA file format with Windows Media Audio Voice audio.\n");
+    printf ("    --help   Show this message and exit.\n");
+    return 0;
+}
+
+int usage (const wchar_t* option = nullptr)
+{
+    if (option) printf ("Invalid option: '%ls'\n", option);
+    printf ("Usage: 'Any2Mp4 [OPTION] input output'\n");
+    printf ("For more information use: 'Any2Mp4 --help'\n");
+    return 1;
+}
+
 int wmain (int argc, wchar_t* argv[])
 {
-    if (argc != 3)
+    const wchar_t* input = nullptr;
+    const wchar_t* output = nullptr;
+
+    enum AudioFormat { MP4, MP3, MP2, MP1, FLAC, WMA8, WMA9, WMAL, WMSP, AC3 };
+    AudioFormat target = AudioFormat::MP4;
+
+    for (int i = 1, argLast = argc - 1; i < argc; ++i)
     {
-        printf ("Usage: Any2Mp4 input.any output.mp4\n");
-        return 1;
+        if (wcsstr (argv[i], L"--") == argv[i])
+        {
+            if (wcscmp (L"--mp4", argv[i]) == 0) target = AudioFormat::MP4;
+            else if (wcscmp (L"--mp3", argv[i]) == 0) target = AudioFormat::MP3;
+            else if (wcscmp (L"--mp2", argv[i]) == 0) target = AudioFormat::MP2;
+            else if (wcscmp (L"--mp1", argv[i]) == 0) target = AudioFormat::MP1;
+            else if (wcscmp (L"--flac", argv[i]) == 0) target = AudioFormat::FLAC;
+            else if (wcscmp (L"--wma8", argv[i]) == 0) target = AudioFormat::WMA8;
+            else if (wcscmp (L"--wma9", argv[i]) == 0) target = AudioFormat::WMA9;
+            else if (wcscmp (L"--wmal", argv[i]) == 0) target = AudioFormat::WMAL;
+            else if (wcscmp (L"--wmsp", argv[i]) == 0) target = AudioFormat::WMSP;
+            else if (wcscmp (L"--ac3", argv[i]) == 0) target = AudioFormat::AC3;
+            else if (wcscmp (L"--help", argv[i]) == 0) return help();
+            else return usage (argv[i]);
+        }
+        else if (i < argLast)
+        {
+            input = argv[i];
+            output = argv[++i];
+        }
+        else
+        {
+            return usage (argv[i]);
+        }
     }
 
+    printf ("Input file: '%ls'\n", input);
+    printf ("Output file: '%ls'\n", output);
+
     juce::File inputFile (juce::File::getCurrentWorkingDirectory()
-           .getChildFile (juce::String (argv[1])));
+            .getChildFile (juce::String (input)));
 
     juce::File outputFile (juce::File::getCurrentWorkingDirectory()
-           .getChildFile (juce::String (argv[2])));
+            .getChildFile (juce::String (output)));
 
     if (inputFile.existsAsFile() == false)
     {
@@ -39,7 +97,7 @@ int wmain (int argc, wchar_t* argv[])
 
     if (! inputStream || ! outputStream)
     {
-        printf ("One or more arguments are not valid.\n");
+        printf ("One or more arguments are invalid.\n");
         return 1;
     }
 
@@ -56,15 +114,32 @@ int wmain (int argc, wchar_t* argv[])
     }
     else
     {
-        MP4AudioFormat mp4Format;
+        std::unique_ptr<juce::AudioFormat> audioFormat = nullptr;
+
+        switch (target)
+        {
+            case MP4: audioFormat.reset (new MP4AudioFormat()); break;
+            case MP3: audioFormat.reset (new MP3AudioFormat()); break;
+            case MP2: audioFormat.reset (new MP2AudioFormat()); break;
+            case MP1: audioFormat.reset (new MP1AudioFormat()); break;
+            case FLAC: audioFormat.reset (new FLACAudioFormat()); break;
+            case WMA8: audioFormat.reset (new WMA8AudioFormat()); break;
+            case WMA9: audioFormat.reset (new WMA9AudioFormat()); break;
+            case WMAL: audioFormat.reset (new WMALosslessAudioFormat()); break;
+            case WMSP: audioFormat.reset (new WMAVoiceAudioFormat()); break;
+            case AC3: audioFormat.reset (new AC3AudioFormat()); break;
+            default:
+                      audioFormat.reset (new MP4AudioFormat());
+                      break;
+        }
 
         std::unique_ptr<juce::AudioFormatWriter> writer (
-                mp4Format.createWriterFor (outputStream,
+                audioFormat->createWriterFor (outputStream,
                     juce::AudioFormatWriterOptions{}
-                    .withSampleRate (reader->sampleRate) // 44100 or 48000
-                    .withNumChannels (reader->numChannels) // 1, 2 or 6
-                    .withBitsPerSample (16) // 16
-                    .withQualityOptionIndex (4) // 0-7, 4 = 96kbps per channel
+                    .withSampleRate (reader->sampleRate)
+                    .withNumChannels (reader->numChannels)
+                    .withBitsPerSample (16)
+                    .withQualityOptionIndex (0)
                     ));
 
         if (writer == nullptr)
@@ -74,11 +149,12 @@ int wmain (int argc, wchar_t* argv[])
         }
         else
         {
-            writer->writeFromAudioReader (*reader, 0, -1);
+            if (writer->writeFromAudioReader (*reader, 0, -1))
+                printf ("Transcode completed successfully.\n");
+            else
+                printf ("Transcode failed.\n");
         }
     }
-
-    printf ("\nThe operation completed successfully.\n");
 
     return 0;
 }
