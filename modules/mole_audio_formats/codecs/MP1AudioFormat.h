@@ -11,32 +11,32 @@ namespace mole {
 #if JUCE_WINDOWS || DOXYGEN
 
     //==========================================================================
-    /** Windows Media Foundation MP4 audio format.
+    /** Windows Media Foundation MP1 audio format.
      *
-     * - AudioFormatReader: Reads MP4, AAC and 3GP file format.
-     * - AudioFormatWriter: Writes MP4 file format with AAC audio.
+     * - AudioFormatReader: Reads MPEG file format.
+     * - AudioFormatWriter: Writes MPEG file format with MPEG Layer 1 audio.
      *
      * For infomation about supported bitrates, number of channels and sample
      * rates see [Audio Encoders](markdown/encoders.md).
      */
-    class MP4AudioFormat final : public juce::AudioFormat
+    class MP1AudioFormat final : public juce::AudioFormat
     {
         //==========================================================================
         public:
             /* Constructor. */
-            MP4AudioFormat() : juce::AudioFormat ("Advanced Audio Coding", {".mp4", ".aac", ".3gp"})
+            MP1AudioFormat() : juce::AudioFormat ("MPEG Layer 1", {".mp1", ".mpa", ".mpg", ".mpeg"})
             {
             }
 
             /* Destructor. */
-            ~MP4AudioFormat() override
+            ~MP1AudioFormat() override
             {
             }
 
             /* Returns a set of sample rates that the format can read and write. */
             juce::Array<int> getPossibleSampleRates() override
             {
-                return { 11025, 16000, 22050, 24000, 32000, 44100, 48000, 96000 };
+                return { 32000, 44100, 48000 };
             }
 
             /* Returns a set of bit depths that the format can read and write. */
@@ -69,17 +69,12 @@ namespace mole {
             /** Returns a list of different qualities that can be used when writing.
              *
              * The following values are supported:
-             * - (0) 96 kbps for mono and stereo, 576 kbps for 5.1, 768 for 7.1
-             * - (N) N kilobits per second
-             *
-             * Supported values for N: 8, 12, 16, 24, 32, 48, 64, 96, 128, 160,
-             * 192, 256, 320, 480, 512, 576, 640, 720, 768, 960, 1152.
+             * - (0) 192 kbps for mono, 224 kbps for stereo
              */
             juce::StringArray getQualityOptions() override
             {
                 return {
-                    "0 - 96 kbps mono/stereo, 576 kbps 5.1, 768 kbps 7.1",
-                    "N - N kbps"
+                    "0 - 192 kbps mono, 224 kbps stereo",
                 };
             }
 
@@ -104,14 +99,9 @@ namespace mole {
                     std::unique_ptr<juce::OutputStream>& streamToWriteTo,
                     const juce::AudioFormatWriterOptions& options) override;
 
-            JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MP4AudioFormat)
+        private:
+            JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MP1AudioFormat)
     };
 
-    //==========================================================================
-    /** @example Any2Mp4/Source/Main.cpp
-     *
-     * This sample demonstrates how to perform simple audio transcoding.
-     */
-
-#endif // JUCE_WINDOWS
-} // namespace mole
+#endif
+}

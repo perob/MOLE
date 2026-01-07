@@ -12,18 +12,18 @@ namespace mole {
 
     //=================================================================
     /* Returns true if the channel layout is supported by this format. */
-    bool MP4AudioFormat::isChannelLayoutSupported (const juce::AudioChannelSet& channelSet)
+    bool WMA8AudioFormat::isChannelLayoutSupported (const juce::AudioChannelSet& channelSet)
     {
-        return isChannelTagSupported (FormatTag::AAC, channelSet);
+        return isChannelTagSupported (FormatTag::WMA8, channelSet);
     }
 
     //=================================================================
     /* Tries to create an object that can read from a stream containing audio data in this format. */
-    juce::AudioFormatReader* MP4AudioFormat::createReaderFor (
+    juce::AudioFormatReader* WMA8AudioFormat::createReaderFor (
             juce::InputStream* sourceStream, bool deleteStreamIfOpeningFails)
     {
         std::unique_ptr<juce::AudioFormatReader> p (
-                Codec().createDecoderFor (MediaFormat::AAC, sourceStream));
+                Codec().createDecoderFor (MediaFormat::WMA8, sourceStream));
 
         if (p->bitsPerSample > 0)
             return p.release();
@@ -36,7 +36,7 @@ namespace mole {
 
     //=================================================================
     /* Tries to create an object that can write to a stream with this audio format. */
-    std::unique_ptr<juce::AudioFormatWriter> MP4AudioFormat::createWriterFor (
+    std::unique_ptr<juce::AudioFormatWriter> WMA8AudioFormat::createWriterFor (
             std::unique_ptr<juce::OutputStream>& streamToWriteTo,
             const juce::AudioFormatWriterOptions& options)
     {
@@ -49,11 +49,11 @@ namespace mole {
         switch (options.getQualityOptionIndex())
         {
             case 0:
-                kbps = (chan == 8) ? 768 : (chan == 6) ? 576 : 96;
+                kbps = 96 * chan;
                 break;
-            case 8: case 12: case 16: case 24: case 32: case 48: case 64: case 96:
-            case 128: case 160: case 192: case 256: case 320: case 480: case 512:
-            case 576: case 640: case 720: case 768: case 960: case 1152:
+            case 8: case 10: case 12: case 16: case 20: case 22:
+            case 24: case 32: case 40: case 48: case 64: case 80:
+            case 96: case 128: case 160: case 192: case 256: case 320:
                 kbps = options.getQualityOptionIndex();
                 break;
             default:
@@ -61,8 +61,11 @@ namespace mole {
                 return nullptr;
         }
 
+        if (kbps == 32 && chan == 2 && rate == 44100)
+            kbps = 31;
+
         std::unique_ptr<juce::AudioFormatWriter> p (
-                Codec().createEncoderFor (MediaFormat::AAC, streamToWriteTo, kbps, chan, rate, bits));
+                Codec().createEncoderFor (MediaFormat::WMA8, streamToWriteTo, kbps, chan, rate, bits));
 
         if (p && p->getBitsPerSample() > 0)
             return p;
