@@ -69,7 +69,7 @@ namespace mole {
             /** Returns a list of different qualities that can be used when writing.
              *
              * The following values are supported:
-             * - (0) voice: 8|8000, 10|11025, 16|16000, 20|22050 kbps|Hz
+             * - (0) voice: 8 kbps (8000 Hz), 10 kbps (11025 Hz), 16 kbps (16000 Hz), 20 kbps (22050 Hz)
              */
             juce::StringArray getQualityOptions() override
             {
