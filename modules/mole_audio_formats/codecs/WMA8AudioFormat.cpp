@@ -49,7 +49,7 @@ namespace mole {
         switch (options.getQualityOptionIndex())
         {
             case 0:
-                kbps = 96 * chan;
+                kbps = (chan > 2) ? 320 : 96 * chan;
                 break;
             case 8: case 10: case 12: case 16: case 20: case 22:
             case 24: case 32: case 40: case 48: case 64: case 80:
