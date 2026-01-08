@@ -56,3 +56,6 @@ html/
 # Media directories
 media/flac/
 media/fraunhofer/
+
+# Media files
+examples/Any2Mp4/Test/sample.*
