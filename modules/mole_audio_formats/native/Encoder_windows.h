@@ -61,18 +61,7 @@ namespace mole {
 
                 if (SUCCEEDED (hr)) hr = sinkWriter->AddStream (outputMediaType, &streamIndex);
                 if (SUCCEEDED (hr)) hr = sinkWriter->SetInputMediaType (streamIndex, inputMediaType, nullptr);
-
-                if (SUCCEEDED (hr) && mediaFormat.isMP1())
-                {
-                    IMFTransform* transform = nullptr;
-
-                    HRESULT hres = sinkWriter->GetServiceForStream (streamIndex, GUID_NULL, IID_IMFTransform, (void**) &transform);
-                    if (SUCCEEDED (hres)) MPEGCodec (transform).setMPEGLayer1();
-                    else DBGAPI(hres);
-
-                    SafeRelease (&transform);
-                }
-
+                if (SUCCEEDED (hr) && mediaFormat.isMP1()) hr = MPEGCodec::setMPEGLayer1 (sinkWriter, streamIndex);
                 if (SUCCEEDED (hr)) hr = sinkWriter->BeginWriting();
 
                 if (FAILED (hr))

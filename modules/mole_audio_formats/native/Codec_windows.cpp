@@ -50,26 +50,26 @@ namespace mole {
         }
 
         //=============================================================================
-        MPEGCodec::MPEGCodec (IMFTransform* transform)
+        HRESULT MPEGCodec::setMPEGLayer1 (IMFSinkWriter* sinkWriter, DWORD streamIndex)
         {
-            transform->QueryInterface (IID_ICodecAPI, (void**) &codec);
-            jassert (codec != nullptr);
-        }
+            ICodecAPI* codec = nullptr;
+            IMFTransform* transform = nullptr;
 
-        MPEGCodec::~MPEGCodec()
-        {
-            SafeRelease (&codec);
-        }
+            HRESULT hr = sinkWriter->GetServiceForStream (streamIndex, GUID_NULL, IID_IMFTransform, (void**) &transform);
+            if (SUCCEEDED (hr)) hr = transform->QueryInterface (IID_ICodecAPI, (void**) &codec);
 
-        void MPEGCodec::setMPEGLayer1()
-        {
-            if (codec)
+            if (SUCCEEDED (hr))
             {
                 VARIANT var;
                 ::InitVariantFromUInt32 (eAVEncMPALayer_1, &var);
-                codec->SetValue (&CODECAPI_AVEncMPALayer, &var);
+                hr = codec->SetValue (&CODECAPI_AVEncMPALayer, &var);
                 ::VariantClear (&var);
             }
+
+            SafeRelease (&codec);
+            SafeRelease (&transform);
+
+            return hr;
         }
 
         //=============================================================================
@@ -126,66 +126,7 @@ namespace mole {
         {
             HRESULT hr = initEncoder();
 
-            if (SUCCEEDED (hr) && format.isWMA())
-            {
-                IPropertyStore* store = nullptr;
-
-                HRESULT hres = transform->QueryInterface (IID_IPropertyStore, (void**) &store);
-
-                if (SUCCEEDED (hres))
-                {
-                    PROPVARIANT prop;
-
-                    if (format.isWMA8() || (format.isWMA9() && vbrq == 0))
-                    {
-                        ::InitPropVariantFromBoolean (FALSE, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_VBRENABLED, prop);
-                        ::PropVariantClear (&prop);
-
-                        ::InitPropVariantFromInt32 (1, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_PASSESUSED, prop);
-                        ::PropVariantClear (&prop);
-                    }
-                    else if (format.isWMA9())
-                    {
-                        jassert (vbrq > 0);
-
-                        ::InitPropVariantFromBoolean (TRUE, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_VBRENABLED, prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_CONSTRAIN_ENUMERATED_VBRQUALITY, prop);
-                        ::PropVariantClear (&prop);
-
-                        ::InitPropVariantFromInt32 (1, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_PASSESUSED, prop);
-                        ::PropVariantClear (&prop);
-
-                        ::InitPropVariantFromUInt32 (vbrq, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_DESIRED_VBRQUALITY, prop);
-                        ::PropVariantClear (&prop);
-                    }
-                    else if (format.isWMALossless())
-                    {
-                        ::InitPropVariantFromBoolean (TRUE, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_VBRENABLED, prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_CONSTRAIN_ENUMERATED_VBRQUALITY, prop);
-                        ::PropVariantClear (&prop);
-
-                        ::InitPropVariantFromUInt32 (100, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_DESIRED_VBRQUALITY, prop);
-                        ::PropVariantClear (&prop);
-                    }
-                    else if (format.isWMAVoice())
-                    {
-                        ::InitPropVariantFromUInt32 (vbrq, &prop);
-                        if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_WMAVOICE_ENC_MusicSpeechClassMode, prop);
-                        ::PropVariantClear (&prop);
-                    }
-                }
-
-                SafeRelease (&store);
-
-                if (FAILED (hres)) DBGAPI(hres);
-            }
+            if (SUCCEEDED (hr) && format.isWMA()) hr = setWMAProperties (vbrq);
 
             if (SUCCEEDED (hr)) hr = findOutputMediaType (kbps, chan, rate, bits, aacProfile, aacPayload);
             if (SUCCEEDED (hr)) hr = findInputMediaType (chan, rate, bits);
@@ -387,6 +328,70 @@ namespace mole {
             if (FAILED (hr)) DBGAPI (hr);
 
             return hr;
+        }
+
+        //=============================================================================
+        HRESULT Codec::setWMAProperties (UINT32 value)
+        {
+            IPropertyStore* store = nullptr;
+
+            HRESULT hres = transform->QueryInterface (IID_IPropertyStore, (void**) &store);
+
+            if (SUCCEEDED (hres))
+            {
+                PROPVARIANT prop;
+
+                if (format.isWMA8() || (format.isWMA9() && value == 0))
+                {
+                    ::InitPropVariantFromBoolean (FALSE, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_VBRENABLED, prop);
+                    ::PropVariantClear (&prop);
+
+                    ::InitPropVariantFromInt32 (1, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_PASSESUSED, prop);
+                    ::PropVariantClear (&prop);
+                }
+                else if (format.isWMA9())
+                {
+                    jassert (value > 0);
+
+                    ::InitPropVariantFromBoolean (TRUE, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_VBRENABLED, prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_CONSTRAIN_ENUMERATED_VBRQUALITY, prop);
+                    ::PropVariantClear (&prop);
+
+                    ::InitPropVariantFromInt32 (1, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_PASSESUSED, prop);
+                    ::PropVariantClear (&prop);
+
+                    ::InitPropVariantFromUInt32 (value, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_DESIRED_VBRQUALITY, prop);
+                    ::PropVariantClear (&prop);
+                }
+                else if (format.isWMALossless())
+                {
+                    ::InitPropVariantFromBoolean (TRUE, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_VBRENABLED, prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_CONSTRAIN_ENUMERATED_VBRQUALITY, prop);
+                    ::PropVariantClear (&prop);
+
+                    ::InitPropVariantFromUInt32 (100, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_DESIRED_VBRQUALITY, prop);
+                    ::PropVariantClear (&prop);
+                }
+                else if (format.isWMAVoice())
+                {
+                    ::InitPropVariantFromInt32 (value, &prop);
+                    if (SUCCEEDED (hres)) hres = store->SetValue (MFPKEY_WMAVOICE_ENC_MusicSpeechClassMode, prop);
+                    ::PropVariantClear (&prop);
+                }
+            }
+
+            SafeRelease (&store);
+
+            if (FAILED (hres)) DBGAPI(hres);
+
+            return hres;
         }
 
         //=============================================================================

@@ -105,18 +105,9 @@ namespace mole {
 
         //=============================================================================
         /** Set MPEG properties on IMFTransform codec API.  */
-        class MPEGCodec
+        struct MPEGCodec
         {
-            ICodecAPI* codec = nullptr;
-
-        public:
-
-            MPEGCodec() = delete;
-            ~MPEGCodec();
-
-            MPEGCodec (IMFTransform* transform);
-
-            void setMPEGLayer1();
+            static HRESULT setMPEGLayer1 (IMFSinkWriter* sinkWriter, DWORD streamIndex);
         };
 
         //=============================================================================
@@ -166,6 +157,9 @@ namespace mole {
             //=============================================================================
             HRESULT findInputMediaType (UINT32 chan, UINT32 rate, UINT32 bits);
             HRESULT findOutputMediaType (UINT32 kbps, UINT32 chan, UINT32 rate, UINT32 bits, UINT32 aacProfile = 0, UINT32 aacPayload = 0);
+
+            //=============================================================================
+            HRESULT setWMAProperties (UINT32 value);
 
             //=============================================================================
             IMFMediaType* cloneMediaType (IMFMediaType* source);
