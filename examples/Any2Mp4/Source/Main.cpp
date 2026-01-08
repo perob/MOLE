@@ -23,6 +23,8 @@ int help()
     printf ("    --wma9   Transcode to WMA file format with Windows Media Audio 9 audio.\n");
     printf ("    --wmal   Transcode to WMA file format with Windows Media Audio Lossless audio.\n");
     printf ("    --wmsp   Transcode to WMA file format with Windows Media Audio Voice audio.\n");
+    printf ("    --kbps   Set kilobits per second.\n");
+    printf ("    --bits   Set bits per sample.\n");
     printf ("    --help   Show this message and exit.\n");
     return 0;
 }
@@ -37,6 +39,8 @@ int usage (const wchar_t* option = nullptr)
 
 int wmain (int argc, wchar_t* argv[])
 {
+    int kbps = 0, bits = 16;
+
     const wchar_t* input = nullptr;
     const wchar_t* output = nullptr;
 
@@ -57,6 +61,8 @@ int wmain (int argc, wchar_t* argv[])
             else if (wcscmp (L"--wmal", argv[i]) == 0) target = AudioFormat::WMAL;
             else if (wcscmp (L"--wmsp", argv[i]) == 0) target = AudioFormat::WMSP;
             else if (wcscmp (L"--ac3", argv[i]) == 0) target = AudioFormat::AC3;
+            else if (wcscmp (L"--kbps", argv[i]) == 0 && i < argLast) kbps = juce::String(argv[++i]).getIntValue();
+            else if (wcscmp (L"--bits", argv[i]) == 0 && i < argLast) bits = juce::String(argv[++i]).getIntValue();
             else if (wcscmp (L"--help", argv[i]) == 0) return help();
             else return usage (argv[i]);
         }
@@ -88,7 +94,7 @@ int wmain (int argc, wchar_t* argv[])
 
     if (outputFile.existsAsFile() == true)
     {
-        printf ("Output file moved to trash.\n");
+        printf ("Output file exists, moved to trash.\n");
         outputFile.moveToTrash();
     }
 
@@ -138,8 +144,8 @@ int wmain (int argc, wchar_t* argv[])
                     juce::AudioFormatWriterOptions{}
                     .withSampleRate (reader->sampleRate)
                     .withNumChannels (reader->numChannels)
-                    .withBitsPerSample (16)
-                    .withQualityOptionIndex (0)
+                    .withBitsPerSample (bits)
+                    .withQualityOptionIndex (kbps)
                     ));
 
         if (writer == nullptr)
