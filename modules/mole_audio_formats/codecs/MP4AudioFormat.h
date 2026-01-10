@@ -113,5 +113,6 @@ namespace mole {
      * This sample demonstrates how to perform simple audio transcoding.
      */
 
-#endif // JUCE_WINDOWS
-} // namespace mole
+    //==========================================================================
+#endif
+}

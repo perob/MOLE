@@ -99,6 +99,7 @@ namespace mole {
                     std::unique_ptr<juce::OutputStream>& streamToWriteTo,
                     const juce::AudioFormatWriterOptions& options) override;
 
+        private:
             JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MP2AudioFormat)
     };
 
