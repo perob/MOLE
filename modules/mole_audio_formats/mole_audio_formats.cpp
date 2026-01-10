@@ -38,4 +38,4 @@
 #include "codecs/WMALosslessAudioFormat.cpp"
 #include "codecs/WMAVoiceAudioFormat.cpp"
 
-#endif // JUCE_WINDOWS
+#endif

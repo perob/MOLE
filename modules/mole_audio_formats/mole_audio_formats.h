@@ -12,7 +12,7 @@
 // version:         2.0.0
 // name:            MOLE audio file format codecs
 // description:     Classes for reading and writing audio file formats.
-// website:         https://perob.github.com
+// website:         https://github.com/perob/MOLE
 // license:         Mozilla Public License Version 2.0
 //
 // dependencies:    juce_core, juce_audio_basics, juce_audio_formats
@@ -66,4 +66,4 @@
 #include "codecs/WMALosslessAudioFormat.h"
 #include "codecs/WMAVoiceAudioFormat.h"
 
-#endif // JUCE_WINDOWS
+#endif
