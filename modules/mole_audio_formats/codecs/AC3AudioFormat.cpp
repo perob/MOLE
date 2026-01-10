@@ -40,6 +40,8 @@ namespace mole {
             std::unique_ptr<juce::OutputStream>& streamToWriteTo,
             const juce::AudioFormatWriterOptions& options)
     {
+        return nullptr;
+#if 0
         UINT32 kbps = 0, chan = 0, rate = 0, bits = 0;
 
         rate = (UINT32) options.getSampleRate();
@@ -63,6 +65,7 @@ namespace mole {
             return p;
 
         return nullptr;
+#endif
     }
 
     //=================================================================

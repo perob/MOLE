@@ -14,7 +14,7 @@ namespace mole {
     /** Windows Media Foundation AC3 audio format.
      *
      * - AudioFormatReader: Reads AC3 file formats.
-     * - AudioFormatWriter: Writes AC3 file format with Dolby AC-3 audio.
+     * - AudioFormatWriter: Not supported.
      *
      * For infomation about supported bitrates, number of channels and sample
      * rates see [Audio Encoders](markdown/encoders.md).
@@ -66,16 +66,10 @@ namespace mole {
             /* Returns true if the channel layout is supported by this format. */
             bool isChannelLayoutSupported (const juce::AudioChannelSet& channelSet) override;
 
-            /** Returns a list of different qualities that can be used when writing.
-             *
-             * The following values are supported:
-             * - (0) 192 kbps for mono, 256 kbps for stereo
-             */
+            /** Returns a list of different qualities that can be used when writing.  */
             juce::StringArray getQualityOptions() override
             {
-                return {
-                    "0 - 192 kbps mono, 256 kbps stereo",
-                };
+                return {};
             }
 
             /* Tries to create an object that can read from a stream containing audio data in this format.  */
