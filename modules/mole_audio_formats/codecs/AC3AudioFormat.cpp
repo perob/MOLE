@@ -37,8 +37,8 @@ namespace mole {
     //=================================================================
     /* Tries to create an object that can write to a stream with this audio format. */
     std::unique_ptr<juce::AudioFormatWriter> AC3AudioFormat::createWriterFor (
-            std::unique_ptr<juce::OutputStream>& streamToWriteTo,
-            const juce::AudioFormatWriterOptions& options)
+            std::unique_ptr<juce::OutputStream>& /*streamToWriteTo*/,
+            const juce::AudioFormatWriterOptions& /*options*/)
     {
         return nullptr;
 #if 0
