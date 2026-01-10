@@ -29,8 +29,8 @@ namespace mole {
         {
             Mono = (FormatTag::AAC | FormatTag::AC3 | FormatTag::FLAC | FormatTag::Float | FormatTag::MP1 | FormatTag::MP2 | FormatTag::MP3 | FormatTag::PCM | FormatTag::WMA8 | FormatTag::WMA9 | FormatTag::WMALossless | FormatTag::WMAVoice), ///< Mono
             Stereo = (FormatTag::AAC | FormatTag::AC3 | FormatTag::FLAC | FormatTag::Float | FormatTag::MP1 | FormatTag::MP2 | FormatTag::MP3 | FormatTag::PCM | FormatTag::WMA8 | FormatTag::WMA9 | FormatTag::WMALossless), ///< Mono and stereo
-            FivePointOne = (FormatTag::AAC | FormatTag::FLAC | FormatTag::Float | FormatTag::PCM | FormatTag::WMA8 | FormatTag::WMA9 | FormatTag::WMALossless), ///< Mono, stereo and 5.1
-            SevenPointOne = (FormatTag::AAC | FormatTag::FLAC | FormatTag::Float | FormatTag::PCM | FormatTag::WMA8 | FormatTag::WMA9 | FormatTag::WMALossless), ///< Mono, stereo, 5.1 and 7.1
+            FivePointOne = (FormatTag::AAC | FormatTag::FLAC | FormatTag::Float | FormatTag::PCM | FormatTag::WMA9 | FormatTag::WMALossless), ///< Mono, stereo and 5.1
+            SevenPointOne = (FormatTag::AAC | FormatTag::FLAC | FormatTag::Float | FormatTag::PCM | FormatTag::WMA9), ///< Mono, stereo, 5.1 and 7.1
             All = (FormatTag::Float | FormatTag::FLAC | FormatTag::PCM) ///< From 1 to 8 channels
         };
 
