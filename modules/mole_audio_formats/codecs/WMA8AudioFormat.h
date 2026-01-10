@@ -73,7 +73,7 @@ namespace mole {
              * - (N) N kbps
              *
              * Supported values for N: 8, 10, 12, 16, 20, 22, 24, 32, 40, 48,
-             * 64, 80, 96, 128, 160, 192, 256, 320, 384, 440, 640, 640, 768.
+             * 64, 80, 96, 128, 160, 192, 256, 320.
              */
             juce::StringArray getQualityOptions() override
             {
