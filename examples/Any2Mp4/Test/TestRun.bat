@@ -3,7 +3,7 @@ set input="..\..\..\media\samples\sample.wav"
 set voice="..\..\..\media\voice\voice-16b-1c-16000hz.wav"
 set any2mp4="..\Builds\VisualStudio2022\x64\Debug\ConsoleApp\Any2Mp4.exe"
 
-%any2mp4% --mp4 %input% sample.mp4
+%any2mp4% --mp4 %input% sample.m4a
 %any2mp4% --mp3 %input% sample.mp3
 %any2mp4% --mp2 %input% sample.mp2
 %any2mp4% --mp1 %input% sample.mp1
