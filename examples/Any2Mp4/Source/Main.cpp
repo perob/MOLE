@@ -39,7 +39,7 @@ int usage (const wchar_t* option = nullptr)
 
 int wmain (int argc, wchar_t* argv[])
 {
-    int kbps = 0, bits = 16;
+    int kbps = 0, bits = 0;
 
     const wchar_t* input = nullptr;
     const wchar_t* output = nullptr;
@@ -138,6 +138,8 @@ int wmain (int argc, wchar_t* argv[])
                       audioFormat.reset (new MP4AudioFormat());
                       break;
         }
+
+        bits = (bits > 0) ? bits : reader->bitsPerSample;
 
         std::unique_ptr<juce::AudioFormatWriter> writer (
                 audioFormat->createWriterFor (outputStream,
