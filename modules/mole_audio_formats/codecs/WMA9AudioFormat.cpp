@@ -40,7 +40,7 @@ namespace mole {
             std::unique_ptr<juce::OutputStream>& streamToWriteTo,
             const juce::AudioFormatWriterOptions& options)
     {
-        UINT32 kbps = 0, chan = 0, rate = 0, bits = 0, vbrq = 0;
+        UINT32 kbps = 0, chan = 0, rate = 0, bits = 0;
 
         rate = (UINT32) options.getSampleRate();
         chan = options.getNumChannels();
@@ -48,18 +48,9 @@ namespace mole {
 
         switch (options.getQualityOptionIndex())
         {
-#if 0
-            case 0: vbrq = 75; kbps = (chan == 2) ? 192 : (rate == 44100) ? 320 : 256; break;
-
-            case 10: vbrq = 10; kbps = (chan == 2) ? 64 : 128; break;
-            case 25: vbrq = 25; kbps = (chan == 2) ? 96 : 192; break;
-            case 50: vbrq = 50; kbps = (chan == 2) ? 128 : 256; break;
-            case 75: vbrq = 75; kbps = (chan == 2) ? 192 : (rate == 44100) ? 320 : 256; break;
-            case 90: vbrq = 90; kbps = (chan == 2) ? 256 : 384; break;
-            case 98: vbrq = 98; kbps = 384; break;
-#else
-            case 0: kbps = 96 * chan; break;
-#endif
+            case 0:
+                kbps = 96 * chan;
+                break;
             case 32: case 48: case 64: case 80: case 96:
             case 128: case 160: case 192: case 256: case 320:
             case 384: case 440: case 640: case 768:
@@ -71,16 +62,8 @@ namespace mole {
                 return nullptr;
         }
 
-#if 0
-        if (vbrq > 0 && chan != 2 && chan != 6)
-        {
-            DBGSTR("The specified VBR quality and number of channels are not supported.");
-            return nullptr;
-        }
-#endif
-
         std::unique_ptr<juce::AudioFormatWriter> p (
-                Codec().createEncoderFor (MediaFormat::WMA9, streamToWriteTo, kbps, chan, rate, bits, vbrq));
+                Codec().createEncoderFor (MediaFormat::WMA9, streamToWriteTo, kbps, chan, rate, bits));
 
         if (p && p->getBitsPerSample() > 0)
             return p;

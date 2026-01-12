@@ -48,10 +48,8 @@ namespace mole {
                     IMFByteStream* byteStream = nullptr;
                     IMFAttributes* attributes = nullptr;
 
-                    // Sink writer attributes.
                     hr = ::MFCreateAttributes (&attributes, 1);
                     if (SUCCEEDED (hr)) hr = attributes->SetGUID (MF_TRANSCODE_CONTAINERTYPE, mediaFormat.container);
-
                     if (SUCCEEDED (hr)) hr = ByteStreamFromOutputStream (&byteStream, stream, mediaFormat.mimeType.toWideCharPointer());
                     if (SUCCEEDED (hr)) hr = ::MFCreateSinkWriterFromURL (nullptr, byteStream, attributes, &sinkWriter);
 

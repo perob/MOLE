@@ -137,8 +137,7 @@ namespace mole {
             /** Create audio encoder for audio media format.  */
             juce::AudioFormatWriter* createEncoderFor (const MediaFormat& mediaFormat,
                     std::unique_ptr<juce::OutputStream>& stream,
-                    UINT32 kbps, UINT32 chan, UINT32 rate, UINT32 bits,
-                    UINT32 vbrq = 0, UINT32 aacProfile = 0, UINT32 aacPayload = 0);
+                    UINT32 kbps, UINT32 chan, UINT32 rate, UINT32 bits);
 
             private:
 
@@ -148,18 +147,17 @@ namespace mole {
              * Initialize encoder from media format and configure input and
              * output media type from audio attributes.
              */
-            HRESULT configureEncoder (UINT32 kbps, UINT32 chan, UINT32 rate, UINT32 bits,
-                    UINT32 vbrq = 0, UINT32 aacProfile = 0, UINT32 aacPayload = 0);
+            HRESULT configureEncoder (UINT32 kbps, UINT32 chan, UINT32 rate, UINT32 bits);
 
             //=============================================================================
             HRESULT initEncoder();
 
             //=============================================================================
             HRESULT findInputMediaType (UINT32 chan, UINT32 rate, UINT32 bits);
-            HRESULT findOutputMediaType (UINT32 kbps, UINT32 chan, UINT32 rate, UINT32 bits, UINT32 aacProfile = 0, UINT32 aacPayload = 0);
+            HRESULT findOutputMediaType (UINT32 kbps, UINT32 chan, UINT32 rate, UINT32 bits);
 
             //=============================================================================
-            HRESULT setWMAProperties (UINT32 value);
+            HRESULT setWMAProperties();
 
             //=============================================================================
             IMFMediaType* cloneMediaType (IMFMediaType* source);
