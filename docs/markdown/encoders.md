@@ -4,287 +4,358 @@
 
 ## AAC audio encoder
 
-| kbps     | bits     | chan     | rate     |  profile                              |  format                           |
-|---------:|---------:|:--------:|---------:|:--------------------------------------|:----------------------------------|
-|        8 |        0 |        1 |    11025 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|        8 |        0 |        1 |    11025 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|        8 |        0 |        1 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|        8 |        0 |        1 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       12 |        0 |        1 |    11025 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       12 |        0 |        1 |    11025 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       12 |        0 |        1 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       12 |        0 |        1 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       12 |        0 |        1 |    24000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       12 |        0 |        2 |    22050 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       12 |        0 |        2 |    24000 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       12 |        0 |        2 |    32000 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        1 |    11025 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        1 |    11025 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       16 |        0 |        1 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        1 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       16 |        0 |        1 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    11025 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    11025 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    32000 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    44100 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       16 |        0 |        2 |    48000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        1 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        1 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       24 |        0 |        1 |    22050 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        1 |    22050 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       24 |        0 |        1 |    24000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        1 |    24000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       24 |        0 |        1 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        2 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        2 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       24 |        0 |        2 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        2 |    44100 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        2 |    44100 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        2 |    48000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       24 |        0 |        2 |    48000 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        1 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        1 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       32 |        0 |        1 |    22050 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        1 |    22050 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       32 |        0 |        1 |    24000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        1 |    24000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       32 |        0 |        1 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    16000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    16000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    22050 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    22050 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    24000 |  0x28: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    24000 |  0x28: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    44100 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    44100 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    48000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       32 |        0 |        2 |    48000 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    44100 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       48 |        0 |        1 |    48000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       48 |        0 |        2 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        2 |    44100 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        2 |    44100 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        2 |    48000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       48 |        0 |        2 |    48000 |  0x30: HE-AAC v2 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       64 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       64 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       64 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       64 |        0 |        2 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        2 |    44100 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        2 |    48000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        6 |    32000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        6 |    44100 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        6 |    48000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        8 |    32000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        8 |    44100 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       64 |        0 |        8 |    48000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       96 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       96 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    32000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    44100 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|       96 |        0 |        2 |    48000 |  0x2C: HE-AAC v1 Profile L2 (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        6 |    32000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        6 |    44100 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        6 |    48000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        8 |    32000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        8 |    44100 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|       96 |        0 |        8 |    48000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        1 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    32000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    44100 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      128 |        0 |        6 |    48000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        8 |    32000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        8 |    44100 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      128 |        0 |        8 |    48000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      160 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      160 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      160 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      160 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      160 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      160 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      160 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      160 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        1 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        1 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    32000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    44100 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      192 |        0 |        6 |    48000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        8 |    32000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        8 |    44100 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      192 |        0 |        8 |    48000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    32000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    44100 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        6 |    48000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    32000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    32000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    32000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    44100 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    44100 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    44100 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    48000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    48000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      256 |        0 |        8 |    48000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    32000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    44100 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    48000 |  0x29: AAC Profile L2       (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    96000 |  0x2B: AAC Profile L5       (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        2 |    96000 |  0x2B: AAC Profile L5       (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    32000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    44100 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        6 |    48000 |  0x2E: HE-AAC v1 Profile L4 (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    32000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    32000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    32000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    44100 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    44100 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    44100 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    48000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    48000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      320 |        0 |        8 |    48000 |  0x52: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      480 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      480 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      480 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      480 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      480 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      480 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      480 |        0 |        8 |    32000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      480 |        0 |        8 |    32000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      480 |        0 |        8 |    44100 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      480 |        0 |        8 |    44100 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      480 |        0 |        8 |    48000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      480 |        0 |        8 |    48000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      512 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      512 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      512 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      512 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      512 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      512 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      512 |        0 |        8 |    32000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      512 |        0 |        8 |    32000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      512 |        0 |        8 |    44100 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      512 |        0 |        8 |    44100 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      512 |        0 |        8 |    48000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      512 |        0 |        8 |    48000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      576 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      576 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      576 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      576 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      640 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      640 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      640 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      640 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      640 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      640 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      640 |        0 |        8 |    32000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      640 |        0 |        8 |    32000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      640 |        0 |        8 |    44100 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      640 |        0 |        8 |    44100 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      640 |        0 |        8 |    48000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      640 |        0 |        8 |    48000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      720 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      720 |        0 |        6 |    32000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      720 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      720 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      720 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      720 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      720 |        0 |        8 |    32000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      720 |        0 |        8 |    32000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      720 |        0 |        8 |    44100 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      720 |        0 |        8 |    44100 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      720 |        0 |        8 |    48000 |  0x50: Unknown Profile      (0:  RAW) |  MFAudioFormat_AAC                |
-|      720 |        0 |        8 |    48000 |  0x50: Unknown Profile      (1: ADTS) |  MFAudioFormat_AAC                |
-|      768 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      768 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      768 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      768 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      960 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      960 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|      960 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|      960 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|     1152 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|     1152 |        0 |        6 |    44100 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
-|     1152 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (0:  RAW) |  MFAudioFormat_AAC                |
-|     1152 |        0 |        6 |    48000 |  0x2A: AAC Profile L4       (1: ADTS) |  MFAudioFormat_AAC                |
+### RAW (.mp4)
+
+#### 0x28 Unknwon Profile
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|        8 |       16 |        1 |    11025 |  0x28  Unknown Profile       (0 RAW)  |
+|        8 |       16 |        1 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       12 |       16 |        1 |    11025 |  0x28  Unknown Profile       (0 RAW)  |
+|       12 |       16 |        1 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       16 |       16 |        1 |    11025 |  0x28  Unknown Profile       (0 RAW)  |
+|       16 |       16 |        1 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       16 |       16 |        2 |    11025 |  0x28  Unknown Profile       (0 RAW)  |
+|       16 |       16 |        2 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       24 |       16 |        1 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       24 |       16 |        1 |    22050 |  0x28  Unknown Profile       (0 RAW)  |
+|       24 |       16 |        1 |    24000 |  0x28  Unknown Profile       (0 RAW)  |
+|       24 |       16 |        2 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       32 |       16 |        1 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       32 |       16 |        1 |    22050 |  0x28  Unknown Profile       (0 RAW)  |
+|       32 |       16 |        2 |    16000 |  0x28  Unknown Profile       (0 RAW)  |
+|       32 |       16 |        2 |    22050 |  0x28  Unknown Profile       (0 RAW)  |
+|       32 |       16 |        2 |    24000 |  0x28  Unknown Profile       (0 RAW)  |
+
+#### 0x29 AAC Profile L2
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|       32 |       16 |        1 |    24000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       48 |       16 |        1 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       48 |       16 |        1 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|       48 |       16 |        1 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       48 |       16 |        2 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       64 |       16 |        1 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       64 |       16 |        1 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|       64 |       16 |        1 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       64 |       16 |        2 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       96 |       16 |        1 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       96 |       16 |        1 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|       96 |       16 |        1 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       96 |       16 |        2 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|       96 |       16 |        2 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|       96 |       16 |        2 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      128 |       16 |        1 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      128 |       16 |        1 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      128 |       16 |        1 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      128 |       16 |        2 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      128 |       16 |        2 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      128 |       16 |        2 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      160 |       16 |        1 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      160 |       16 |        1 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      160 |       16 |        2 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      160 |       16 |        2 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      192 |       16 |        1 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      192 |       16 |        1 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      192 |       16 |        2 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      192 |       16 |        2 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      192 |       16 |        2 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      256 |       16 |        2 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      256 |       16 |        2 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      256 |       16 |        2 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      320 |       16 |        2 |    32000 |  0x29  AAC Profile L2        (0 RAW)  |
+|      320 |       16 |        2 |    44100 |  0x29  AAC Profile L2        (0 RAW)  |
+|      320 |       16 |        2 |    48000 |  0x29  AAC Profile L2        (0 RAW)  |
+
+#### 0x2A AAC Profile L4
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|      128 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      128 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      128 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      192 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      192 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      192 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      256 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      256 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      256 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      320 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      320 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      320 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      480 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      480 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      480 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      512 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      512 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      512 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      576 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      576 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      640 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      640 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      640 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      720 |       16 |        6 |    32000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      720 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      720 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      768 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      768 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      960 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|      960 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+|     1152 |       16 |        6 |    44100 |  0x2A  AAC Profile L4        (0 RAW)  |
+|     1152 |       16 |        6 |    48000 |  0x2A  AAC Profile L4        (0 RAW)  |
+
+#### 0x2B AAC Profile L5
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|      320 |       16 |        2 |    96000 |  0x2B  AAC Profile L5        (0 RAW)  |
+
+#### 0x2C HE-AAC v1 Profile L2
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|       12 |       16 |        1 |    24000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       16 |       16 |        1 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       16 |       16 |        2 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       16 |       16 |        2 |    44100 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       16 |       16 |        2 |    48000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       24 |       16 |        1 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       24 |       16 |        2 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       24 |       16 |        2 |    44100 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       24 |       16 |        2 |    48000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       32 |       16 |        1 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       32 |       16 |        2 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       32 |       16 |        2 |    44100 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       32 |       16 |        2 |    48000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       48 |       16 |        1 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       48 |       16 |        1 |    44100 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       48 |       16 |        1 |    48000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       48 |       16 |        2 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       48 |       16 |        2 |    44100 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       48 |       16 |        2 |    48000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       64 |       16 |        2 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       64 |       16 |        2 |    44100 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       64 |       16 |        2 |    48000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       96 |       16 |        2 |    32000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       96 |       16 |        2 |    44100 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+|       96 |       16 |        2 |    48000 |  0x2C  HE-AAC v1 Profile L2  (0 RAW)  |
+
+#### 0x2E HE-AAC v1 Profile L4
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|       64 |       16 |        6 |    32000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|       64 |       16 |        6 |    44100 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|       64 |       16 |        6 |    48000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|       96 |       16 |        6 |    32000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|       96 |       16 |        6 |    44100 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|       96 |       16 |        6 |    48000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      128 |       16 |        6 |    32000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      128 |       16 |        6 |    44100 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      128 |       16 |        6 |    48000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      192 |       16 |        6 |    32000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      192 |       16 |        6 |    44100 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      192 |       16 |        6 |    48000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      256 |       16 |        6 |    32000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      256 |       16 |        6 |    44100 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      256 |       16 |        6 |    48000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      320 |       16 |        6 |    32000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      320 |       16 |        6 |    44100 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+|      320 |       16 |        6 |    48000 |  0x2E  HE-AAC v1 Profile L4  (0 RAW)  |
+
+#### 0x30 HE-AAC v2 Profile L2
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|       12 |       16 |        2 |    22050 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       12 |       16 |        2 |    24000 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       12 |       16 |        2 |    32000 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       16 |       16 |        2 |    32000 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       24 |       16 |        2 |    44100 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       24 |       16 |        2 |    48000 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       32 |       16 |        2 |    44100 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       32 |       16 |        2 |    48000 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       48 |       16 |        2 |    44100 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+|       48 |       16 |        2 |    48000 |  0x30  HE-AAC v2 Profile L2  (0 RAW)  |
+
+#### 0x50 Unknown Profile
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|      256 |       16 |        8 |    32000 |  0x50  Unknown Profile       (0 RAW)  |
+|      256 |       16 |        8 |    44100 |  0x50  Unknown Profile       (0 RAW)  |
+|      256 |       16 |        8 |    48000 |  0x50  Unknown Profile       (0 RAW)  |
+|      320 |       16 |        8 |    32000 |  0x50  Unknown Profile       (0 RAW)  |
+|      320 |       16 |        8 |    44100 |  0x50  Unknown Profile       (0 RAW)  |
+|      320 |       16 |        8 |    48000 |  0x50  Unknown Profile       (0 RAW)  |
+|      480 |       16 |        8 |    32000 |  0x50  Unknown Profile       (0 RAW)  |
+|      480 |       16 |        8 |    44100 |  0x50  Unknown Profile       (0 RAW)  |
+|      480 |       16 |        8 |    48000 |  0x50  Unknown Profile       (0 RAW)  |
+|      512 |       16 |        8 |    32000 |  0x50  Unknown Profile       (0 RAW)  |
+|      512 |       16 |        8 |    44100 |  0x50  Unknown Profile       (0 RAW)  |
+|      512 |       16 |        8 |    48000 |  0x50  Unknown Profile       (0 RAW)  |
+|      640 |       16 |        8 |    32000 |  0x50  Unknown Profile       (0 RAW)  |
+|      640 |       16 |        8 |    44100 |  0x50  Unknown Profile       (0 RAW)  |
+|      640 |       16 |        8 |    48000 |  0x50  Unknown Profile       (0 RAW)  |
+|      720 |       16 |        8 |    32000 |  0x50  Unknown Profile       (0 RAW)  |
+|      720 |       16 |        8 |    44100 |  0x50  Unknown Profile       (0 RAW)  |
+|      720 |       16 |        8 |    48000 |  0x50  Unknown Profile       (0 RAW)  |
+
+#### 0x52 Unknown Profile
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|       64 |       16 |        8 |    32000 |  0x52  Unknown Profile       (0 RAW)  |
+|       64 |       16 |        8 |    44100 |  0x52  Unknown Profile       (0 RAW)  |
+|       64 |       16 |        8 |    48000 |  0x52  Unknown Profile       (0 RAW)  |
+|       96 |       16 |        8 |    32000 |  0x52  Unknown Profile       (0 RAW)  |
+|       96 |       16 |        8 |    44100 |  0x52  Unknown Profile       (0 RAW)  |
+|       96 |       16 |        8 |    48000 |  0x52  Unknown Profile       (0 RAW)  |
+|      128 |       16 |        8 |    32000 |  0x52  Unknown Profile       (0 RAW)  |
+|      128 |       16 |        8 |    44100 |  0x52  Unknown Profile       (0 RAW)  |
+|      128 |       16 |        8 |    48000 |  0x52  Unknown Profile       (0 RAW)  |
+|      192 |       16 |        8 |    32000 |  0x52  Unknown Profile       (0 RAW)  |
+|      192 |       16 |        8 |    44100 |  0x52  Unknown Profile       (0 RAW)  |
+|      192 |       16 |        8 |    48000 |  0x52  Unknown Profile       (0 RAW)  |
+|      256 |       16 |        8 |    32000 |  0x52  Unknown Profile       (0 RAW)  |
+|      256 |       16 |        8 |    44100 |  0x52  Unknown Profile       (0 RAW)  |
+|      256 |       16 |        8 |    48000 |  0x52  Unknown Profile       (0 RAW)  |
+|      320 |       16 |        8 |    32000 |  0x52  Unknown Profile       (0 RAW)  |
+|      320 |       16 |        8 |    44100 |  0x52  Unknown Profile       (0 RAW)  |
+|      320 |       16 |        8 |    48000 |  0x52  Unknown Profile       (0 RAW)  |
+
+### ADTS (.aac)
+
+#### 0x28 Unknown Profile
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|        8 |       16 |        1 |    11025 |  0x28  Unknown Profile      (1 ADTS)  |
+|        8 |       16 |        1 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       12 |       16 |        1 |    11025 |  0x28  Unknown Profile      (1 ADTS)  |
+|       12 |       16 |        1 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       16 |       16 |        1 |    11025 |  0x28  Unknown Profile      (1 ADTS)  |
+|       16 |       16 |        1 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       16 |       16 |        2 |    11025 |  0x28  Unknown Profile      (1 ADTS)  |
+|       16 |       16 |        2 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       24 |       16 |        1 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       24 |       16 |        1 |    22050 |  0x28  Unknown Profile      (1 ADTS)  |
+|       24 |       16 |        1 |    24000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       24 |       16 |        2 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       32 |       16 |        1 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       32 |       16 |        1 |    22050 |  0x28  Unknown Profile      (1 ADTS)  |
+|       32 |       16 |        2 |    16000 |  0x28  Unknown Profile      (1 ADTS)  |
+|       32 |       16 |        2 |    22050 |  0x28  Unknown Profile      (1 ADTS)  |
+|       32 |       16 |        2 |    24000 |  0x28  Unknown Profile      (1 ADTS)  |
+
+#### 0x29 AAC Profile L2
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|       32 |       16 |        1 |    24000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       48 |       16 |        1 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       48 |       16 |        1 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       48 |       16 |        1 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       48 |       16 |        2 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       64 |       16 |        1 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       64 |       16 |        1 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       64 |       16 |        1 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       64 |       16 |        2 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       96 |       16 |        1 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       96 |       16 |        1 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       96 |       16 |        1 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       96 |       16 |        2 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       96 |       16 |        2 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|       96 |       16 |        2 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      128 |       16 |        1 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      128 |       16 |        1 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      128 |       16 |        1 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      128 |       16 |        2 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      128 |       16 |        2 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      128 |       16 |        2 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      160 |       16 |        1 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      160 |       16 |        1 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      160 |       16 |        2 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      160 |       16 |        2 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      192 |       16 |        1 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      192 |       16 |        1 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      192 |       16 |        2 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      192 |       16 |        2 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      192 |       16 |        2 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      256 |       16 |        2 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      256 |       16 |        2 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      256 |       16 |        2 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      320 |       16 |        2 |    32000 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      320 |       16 |        2 |    44100 |  0x29  AAC Profile L2       (1 ADTS)  |
+|      320 |       16 |        2 |    48000 |  0x29  AAC Profile L2       (1 ADTS)  |
+
+#### 0x2A AAC Profile L4
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|      128 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      128 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      128 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      192 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      192 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      192 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      256 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      256 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      256 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      320 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      320 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      320 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      480 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      480 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      480 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      512 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      512 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      512 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      576 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      576 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      640 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      640 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      640 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      720 |       16 |        6 |    32000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      720 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      720 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      768 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      768 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      960 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|      960 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|     1152 |       16 |        6 |    44100 |  0x2A  AAC Profile L4       (1 ADTS)  |
+|     1152 |       16 |        6 |    48000 |  0x2A  AAC Profile L4       (1 ADTS)  |
+
+#### 0x2B AAC Profile L5
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|      320 |       16 |        2 |    96000 |  0x2B  AAC Profile L5       (1 ADTS)  |
+
+#### 0x50 Unknown Profile
+
+| kbps     | bits     | chan     | rate     |  profile (payload)                    |
+|---------:|---------:|:--------:|---------:|:--------------------------------------|
+|      256 |       16 |        8 |    32000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      256 |       16 |        8 |    44100 |  0x50  Unknown Profile      (1 ADTS)  |
+|      256 |       16 |        8 |    48000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      320 |       16 |        8 |    32000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      320 |       16 |        8 |    44100 |  0x50  Unknown Profile      (1 ADTS)  |
+|      320 |       16 |        8 |    48000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      480 |       16 |        8 |    32000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      480 |       16 |        8 |    44100 |  0x50  Unknown Profile      (1 ADTS)  |
+|      480 |       16 |        8 |    48000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      512 |       16 |        8 |    32000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      512 |       16 |        8 |    44100 |  0x50  Unknown Profile      (1 ADTS)  |
+|      512 |       16 |        8 |    48000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      640 |       16 |        8 |    32000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      640 |       16 |        8 |    44100 |  0x50  Unknown Profile      (1 ADTS)  |
+|      640 |       16 |        8 |    48000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      720 |       16 |        8 |    32000 |  0x50  Unknown Profile      (1 ADTS)  |
+|      720 |       16 |        8 |    44100 |  0x50  Unknown Profile      (1 ADTS)  |
+|      720 |       16 |        8 |    48000 |  0x50  Unknown Profile      (1 ADTS)  |
 
 ----------------------------------------
 
