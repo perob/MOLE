@@ -33,7 +33,7 @@ namespace mole {
 
             Encoder (const MediaFormat& mediaFormat, juce::OutputStream* stream,
                     IMFMediaType* inputMediaType, IMFMediaType* outputMediaType,
-                    UINT32 rate, UINT32 chan, UINT32 bits, [[maybe_unused]] UINT32 wmaOption = 0) :
+                    UINT32 rate, UINT32 chan, UINT32 bits) :
                 juce::AudioFormatWriter (stream, mediaFormat.name, (double) rate, chan, bits),
                 sampleSize ((bits / 8) * chan), sampleDuration (1e+7 / (double) rate)
             {
