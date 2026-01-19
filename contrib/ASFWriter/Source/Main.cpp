@@ -37,7 +37,7 @@
 
 int help()
 {
-    printf ("Usage: 'Any2WMA [OPTIONS] input output'\n");
+    printf ("Usage: 'ASFWriter [OPTIONS] input output'\n");
     printf ("   input   Input file name - any audio file format\n");
     printf ("   output  Output file name - ASF file format with WMA audio (.wma)\n");
     printf ("Options:\n");
@@ -50,8 +50,8 @@ int help()
 int usage (const wchar_t* option = nullptr)
 {
     if (option) printf ("Invalid option: '%ls'\n", option);
-    printf ("Usage: 'Any2WMA [OPTIONS] input output'\n");
-    printf ("For more information use: 'Any2WMA --help'\n");
+    printf ("Usage: 'ASFWriter [OPTIONS] input output'\n");
+    printf ("For more information use: 'ASFWriter --help'\n");
     return 1;
 }
 
