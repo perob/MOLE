@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="RZdCFF" name="ASFWriter" projectType="consoleapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+  <MAINGROUP id="wZpVJY" name="ASFWriter">
+    <GROUP id="{378503CB-3167-EA21-D240-2187A90C21D2}" name="Source">
+      <FILE id="oPhGlT" name="ASFWriter.cpp" compile="1" resource="0" file="Source/ASFWriter.cpp"/>
+      <FILE id="gfH7mu" name="ASFWriter.h" compile="0" resource="0" file="Source/ASFWriter.h"/>
+      <FILE id="tMcwFv" name="Audio.cpp" compile="1" resource="0" file="Source/Audio.cpp"/>
+      <FILE id="DKGzqI" name="Audio.h" compile="0" resource="0" file="Source/Audio.h"/>
+      <FILE id="SFm0i0" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="IHEnaQ" name="Platform.h" compile="0" resource="0" file="Source/Platform.h"/>
+      <FILE id="f10l0V" name="PropertyStore.cpp" compile="1" resource="0"
+            file="Source/PropertyStore.cpp"/>
+      <FILE id="CVRxYp" name="PropertyStore.h" compile="0" resource="0" file="Source/PropertyStore.h"/>
+      <FILE id="oPYt7J" name="System.h" compile="0" resource="0" file="Source/System.h"/>
+      <FILE id="d605FK" name="WMAEncoder.cpp" compile="1" resource="0" file="Source/WMAEncoder.cpp"/>
+      <FILE id="cmZWGe" name="WMAEncoder.h" compile="0" resource="0" file="Source/WMAEncoder.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+        <MODULEPATH id="juce_data_structures" path="../../juce"/>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
