@@ -1,6 +1,6 @@
 # NAME
 
-Transcode - C++ example
+Transcode -- C++ example
 
 # SYNOPSIS
 
@@ -14,4 +14,4 @@ Test custom **IMFByteStream** implementation.
 
 # COPYRIGHT
 
-Copyright (c) Microsoft Corporation. All rights reserved.
+Copyright (c) Microsoft Corporation.
