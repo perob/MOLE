@@ -16,7 +16,7 @@
 // license:         Mozilla Public License Version 2.0
 //
 // dependencies:    juce_core, juce_audio_basics, juce_audio_formats
-// windowsLibs:     mf mfplat mfreadwrite mfuuid propsys strmiids
+// windowsLibs:     mf mfplat mfreadwrite mfuuid wmcodecdspuuid propsys strmiids
 //
 // END_JUCE_MODULE_DECLARATION
 //============================================================================
@@ -46,12 +46,14 @@
 #include <propkey.h>
 #include <propvarutil.h>
 #include <shobjidl.h>
+#include <wmcontainer.h>
 #include <wmcodecdsp.h>
 #include <codecapi.h>
 
 #include "native/System_windows.h"
 #include "native/ByteStream_windows.h"
 #include "native/Codec_windows.h"
+#include "native/WMATransform_windows.h"
 #endif
 
 #include "native/ShellMetadata_windows.h"

@@ -26,6 +26,8 @@
 #include "native/Encoder_windows.h"
 #include "native/Decoder_windows.h"
 #include "native/Codec_windows.cpp"
+#include "native/ASFSink_windows.h"
+#include "native/WMATransform_windows.cpp"
 
 #include "codecs/AC3AudioFormat.cpp"
 #include "codecs/FLACAudioFormat.cpp"
