@@ -69,17 +69,19 @@ namespace mole {
             /** Returns a list of different qualities that can be used when writing.
              *
              * The following values are supported:
-             * - (0) 96 kbps per channel
-             * - (N) N kilobits per second
+             * - (0) constant bitrate, 96 kbps per channel
+             * - (N) constant bitrate, N kilobits per second
+             * - (Q) variable bitrate, Q quality
              *
              * Supported values for N: 32, 48, 64, 80, 96, 128, 160, 192, 256,
              * 320, 384, 440, 640, 768.
+             *
+             * Supported values for Q: 10, 25, 50, 75, 90, 98.
              */
             juce::StringArray getQualityOptions() override
             {
                 return {
                     "0 - 96 kbps per channel",
-                    "N - N kbps"
                 };
             }
 

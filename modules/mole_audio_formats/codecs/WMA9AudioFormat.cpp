@@ -40,21 +40,26 @@ namespace mole {
             std::unique_ptr<juce::OutputStream>& streamToWriteTo,
             const juce::AudioFormatWriterOptions& options)
     {
-        UINT32 kbps = 0, chan = 0, rate = 0, bits = 0;
+        UINT32 kbps = 0, chan = 0, rate = 0, bits = 0, vbrq = 0;
 
         rate = (UINT32) options.getSampleRate();
         chan = options.getNumChannels();
         bits = options.getBitsPerSample();
 
-        switch (options.getQualityOptionIndex())
+        const int option = options.getQualityOptionIndex();
+
+        switch (option)
         {
-            case 0:
-                kbps = 96 * chan;
-                break;
+            case 0: kbps = 96 * chan; break;
+
             case 32: case 48: case 64: case 80: case 96:
             case 128: case 160: case 192: case 256: case 320:
             case 384: case 440: case 640: case 768:
-                kbps = options.getQualityOptionIndex();
+                kbps = option;
+                break;
+
+            case 10: case 50: case 75: case 90: case 98:
+                vbrq = option;
                 break;
 
             default:
@@ -62,8 +67,16 @@ namespace mole {
                 return nullptr;
         }
 
-        std::unique_ptr<juce::AudioFormatWriter> p (
-                Codec().createEncoderFor (MediaFormat::WMA9, streamToWriteTo, kbps, chan, rate, bits));
+        std::unique_ptr<juce::AudioFormatWriter> p = nullptr;
+       
+        if (vbrq)
+        {
+            p.reset (WMATransform().createSinkFor (MediaFormat::WMA9, streamToWriteTo, vbrq, chan, rate, bits));
+        }
+        else if (kbps > 0)
+        {
+            p.reset (Codec().createEncoderFor (MediaFormat::WMA9, streamToWriteTo, kbps, chan, rate, bits));
+        }
 
         if (p && p->getBitsPerSample() > 0)
             return p;
