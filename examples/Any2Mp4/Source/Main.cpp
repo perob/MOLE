@@ -139,8 +139,6 @@ int wmain (int argc, wchar_t* argv[])
                       break;
         }
 
-        bits = (bits > 0) ? bits : reader->bitsPerSample;
-
         int option = (kbps) ? kbps : vbrq;
 
         std::unique_ptr<juce::AudioFormatWriter> writer (
@@ -148,7 +146,7 @@ int wmain (int argc, wchar_t* argv[])
                     juce::AudioFormatWriterOptions{}
                     .withSampleRate (reader->sampleRate)
                     .withNumChannels (reader->numChannels)
-                    .withBitsPerSample (bits)
+                    .withBitsPerSample (reader->bitsPerSample)
                     .withQualityOptionIndex (option)
                     ));
 
