@@ -56,13 +56,6 @@ int usage (const wchar_t* option = nullptr)
 }
 
 //=====================================================================
-BOOL FileExists (LPCTSTR path)
-{
-    const DWORD attrib = GetFileAttributes (path);
-    return (attrib != INVALID_FILE_ATTRIBUTES && !(attrib & FILE_ATTRIBUTE_DIRECTORY));
-}
-
-//=====================================================================
 int wmain (int argc, wchar_t* argv[])
 {
     HeapSetInformation (nullptr, HeapEnableTerminationOnCorruption, nullptr, 0);
@@ -89,8 +82,6 @@ int wmain (int argc, wchar_t* argv[])
         else return usage (argv[i]);
     }
 
-    HRESULT hr = (inputFileName && outputFileName) ? S_OK : E_INVALIDARG;
-
     if (mode == EncodeMode_None) mode = EncodeMode_VBR_Quality;
 
     IMFASFMultiplexer* mux = nullptr;
@@ -102,6 +93,8 @@ int wmain (int argc, wchar_t* argv[])
 
     COMLibrary library;
     MFPlatform platform;
+
+    HRESULT hr = (inputFileName && outputFileName) ? S_OK : E_INVALIDARG;
 
     if (SUCCEEDED (hr)) hr = library.Initialize();
     if (SUCCEEDED (hr)) hr = platform.Initialize();
