@@ -22,8 +22,6 @@ Demonstrates how to perform simple audio transcoding.
     - Transcode to MP2 file format with MPEG Layer 2 audio.
 * `--mp1`
     - Transcode to MP1 file format with MPEG Layer 1 audio.
-* `--ac3`
-    - Transcode to AC3 file format with Dolby AC-3 audio.
 * `--flac`
     - Transcode to MP4 file format with FLAC audio.
 * `--wma8`
@@ -36,8 +34,8 @@ Demonstrates how to perform simple audio transcoding.
     - Transcode to WMA file format with Windows Media Audio Voice audio.
 * `--kbps NUM`
     - Set kilobits per second.
-* `--bits NUM`
-    - Set bits per sample.
+* `--vbrq NUM`
+    - Set variable bitrate quality.
 * `--help`
     - Show this message and exit.
 
