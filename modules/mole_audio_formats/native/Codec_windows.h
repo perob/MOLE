@@ -38,7 +38,7 @@ namespace mole {
         bool isChannelTagSupported (FormatTag formatTag, const juce::AudioChannelSet& channelSet);
 
         //=============================================================================
-        /** Describes a media format.  */
+        /** Describes audio media format.  */
         struct MediaFormat
         {
             FormatTag tag = FormatTag::None;
@@ -59,14 +59,11 @@ namespace mole {
             ~MediaFormat() = default;
 
             //=============================================================================
-            bool isValid() const { return tag != FormatTag::None; }
-
             const char* toUTF8() const { return name.toRawUTF8(); }
             juce::String toString() const { return name; }
 
-            bool isEqual (REFGUID other) const { return ::IsEqualGUID (guid, other); }
-
             bool isEqual (FormatTag other) const { return tag == other; }
+            bool isEqual (REFGUID other) const { return ::IsEqualGUID (guid, other); }
 
             bool isAAC() const { return tag == FormatTag::AAC; }
             bool isAC3() const { return tag == FormatTag::AC3; }
