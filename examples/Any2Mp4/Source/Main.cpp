@@ -13,19 +13,18 @@ int help()
     printf ("Transcode audio file formats.\n");
     printf ("Usage: 'Any2Mp4 [OPTION] input output'\n");
     printf ("Options:\n");
-    printf ("    --mp4    Transcode to MP4 file format with AAC audio (default).\n");
-    printf ("    --mp3    Transcode to MP3 file format with MPEG Layer 3 audio.\n");
-    printf ("    --mp2    Transcode to MP2 file format with MPEG Layer 2 audio.\n");
-    printf ("    --mp1    Transcode to MP1 file format with MPEG Layer 1 audio.\n");
-    printf ("    --ac3    Transcode to AC3 file format with Dolby AC-3 audio.\n");
-    printf ("    --flac   Transcode to MP4 file format with FLAC audio.\n");
-    printf ("    --wma8   Transcode to WMA file format with Windows Media Audio 8 audio.\n");
-    printf ("    --wma9   Transcode to WMA file format with Windows Media Audio 9 audio.\n");
-    printf ("    --wmal   Transcode to WMA file format with Windows Media Audio Lossless audio.\n");
-    printf ("    --wmsp   Transcode to WMA file format with Windows Media Audio Voice audio.\n");
-    printf ("    --kbps   Set kilobits per second.\n");
-    printf ("    --bits   Set bits per sample.\n");
-    printf ("    --help   Show this message and exit.\n");
+    printf ("    --mp4       Transcode to MP4 file format with AAC audio (default).\n");
+    printf ("    --mp3       Transcode to MP3 file format with MPEG Layer 3 audio.\n");
+    printf ("    --mp2       Transcode to MP2 file format with MPEG Layer 2 audio.\n");
+    printf ("    --mp1       Transcode to MP1 file format with MPEG Layer 1 audio.\n");
+    printf ("    --flac      Transcode to MP4 file format with FLAC audio.\n");
+    printf ("    --wma8      Transcode to WMA file format with Windows Media Audio 8 audio.\n");
+    printf ("    --wma9      Transcode to WMA file format with Windows Media Audio 9 audio.\n");
+    printf ("    --wmal      Transcode to WMA file format with Windows Media Audio Lossless audio.\n");
+    printf ("    --wmsp      Transcode to WMA file format with Windows Media Audio Voice audio.\n");
+    printf ("    --kbps NUM  Set kilobits per second.\n");
+    printf ("    --vbrq NUM  Set variable bitrate quality.\n");
+    printf ("    --help      Show this message and exit.\n");
     return 0;
 }
 
@@ -39,7 +38,7 @@ int usage (const wchar_t* option = nullptr)
 
 int wmain (int argc, wchar_t* argv[])
 {
-    int kbps = 0, bits = 0;
+    int kbps = 0, vbrq = 0;
 
     const wchar_t* input = nullptr;
     const wchar_t* output = nullptr;
@@ -60,9 +59,8 @@ int wmain (int argc, wchar_t* argv[])
             else if (wcscmp (L"--wma9", argv[i]) == 0) target = AudioFormat::WMA9;
             else if (wcscmp (L"--wmal", argv[i]) == 0) target = AudioFormat::WMAL;
             else if (wcscmp (L"--wmsp", argv[i]) == 0) target = AudioFormat::WMSP;
-            else if (wcscmp (L"--ac3", argv[i]) == 0) target = AudioFormat::AC3;
             else if (wcscmp (L"--kbps", argv[i]) == 0 && i < argLast) kbps = juce::String(argv[++i]).getIntValue();
-            else if (wcscmp (L"--bits", argv[i]) == 0 && i < argLast) bits = juce::String(argv[++i]).getIntValue();
+            else if (wcscmp (L"--vbrq", argv[i]) == 0 && i < argLast) vbrq = juce::String(argv[++i]).getIntValue();
             else if (wcscmp (L"--help", argv[i]) == 0) return help();
             else return usage (argv[i]);
         }
@@ -76,6 +74,8 @@ int wmain (int argc, wchar_t* argv[])
             return usage (argv[i]);
         }
     }
+
+    if (kbps && vbrq) return usage (L"kbps/vbrq");
 
     printf ("Input file: '%ls'\n", input);
     printf ("Output file: '%ls'\n", output);
@@ -141,13 +141,15 @@ int wmain (int argc, wchar_t* argv[])
 
         bits = (bits > 0) ? bits : reader->bitsPerSample;
 
+        int option = (kbps) ? kbps : vbrq;
+
         std::unique_ptr<juce::AudioFormatWriter> writer (
                 audioFormat->createWriterFor (outputStream,
                     juce::AudioFormatWriterOptions{}
                     .withSampleRate (reader->sampleRate)
                     .withNumChannels (reader->numChannels)
                     .withBitsPerSample (bits)
-                    .withQualityOptionIndex (kbps)
+                    .withQualityOptionIndex (option)
                     ));
 
         if (writer == nullptr)
