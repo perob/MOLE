@@ -73,7 +73,7 @@ namespace mole {
              * - (N) constant bitrate, N kbps
              * - (Q) variable bitrate, quality Q
              *
-             * Supported values for N: 8, 10, 12, 16, 20, 22, 24, 32, 40, 48,
+             * Supported values for N: 8, 12, 16, 20, 22, 24, 32, 40, 48,
              * 64, 80, 96, 128, 160, 192, 256, 320.
              *
              * Supported values for Q: 10, 25, 50, 75, 90, 98.
