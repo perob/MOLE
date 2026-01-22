@@ -107,11 +107,7 @@ namespace mole {
             {
                 if (byteStream)
                 {
-                    HRESULT hr = transform->ProcessMessage (MFT_MESSAGE_COMMAND_DRAIN, streamID);
-
-                    while (SUCCEEDED (hr)) hr = processOutput();
-
-                    if (hr == MF_E_TRANSFORM_NEED_MORE_INPUT) hr = S_OK;
+                    HRESULT hr = flush() ? S_OK : E_FAIL;
 
                     if (SUCCEEDED (hr)) hr = mux->Flush();
                     if (SUCCEEDED (hr)) hr = writePackets();
@@ -147,7 +143,9 @@ namespace mole {
             //=============================================================================
             bool flush() override
             {
-                return true;
+                HRESULT hr = transform->ProcessMessage (MFT_MESSAGE_COMMAND_DRAIN, streamID);
+                while (SUCCEEDED (hr)) hr = processOutput();
+                return hr == MF_E_TRANSFORM_NEED_MORE_INPUT;
             }
 
             //=============================================================================
