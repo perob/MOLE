@@ -25,24 +25,23 @@ namespace mole {
 
         //=============================================================================
         juce::AudioFormatWriter* WMATransform::createSinkFor (
-                const MediaFormat& format, std::unique_ptr<juce::OutputStream>& stream,
+                const MediaFormat& mediaFormat, std::unique_ptr<juce::OutputStream>& stream,
                 UINT32 vbrq, UINT32 chan, UINT32 rate, UINT32 bits)
         {
             HRESULT hr = configureEncoder (vbrq, chan, rate, bits);
 
-            mediaFormat = format;
-
             if (SUCCEEDED (hr))
             {
+                transform->AddRef();
+
                 juce::AudioFormatWriter* sink = new (std::nothrow) ASFSink (
                     mediaFormat, std::exchange (stream, {}).release(),
                     rate, chan, bits, transform);
 
-                if (sink) transform->AddRef();
-
                 return sink;
             }
 
+            DBGAPI(hr);
             return nullptr;
         }
 
@@ -73,8 +72,6 @@ namespace mole {
 
             SafeRelease (&store);
 
-            if (FAILED (hr)) DBGAPI(hr);
-
             return hr;
         }
 
@@ -98,7 +95,7 @@ namespace mole {
                 inputType->SetUINT32 (MF_MT_AUDIO_BLOCK_ALIGNMENT, blockAlignment);
                 inputType->SetUINT32 (MF_MT_AUDIO_AVG_BYTES_PER_SECOND, bytesPerSecond);
 
-                hr = transform->SetInputType (inputStreamID, inputType, 0);
+                hr = transform->SetInputType (streamID, inputType, 0);
             }
 
             SafeRelease (&inputType);
@@ -107,19 +104,17 @@ namespace mole {
             {
                 IMFMediaType* outputType = nullptr;
 
-                hr = transform->GetOutputAvailableType (outputStreamID, i, &outputType);
+                hr = transform->GetOutputAvailableType (streamID, i, &outputType);
 
                 if (SUCCEEDED (hr))
                 {
-                    hr = transform->SetOutputType (outputStreamID, outputType, 0);
+                    hr = transform->SetOutputType (streamID, outputType, 0);
                     SafeRelease (&outputType);
                     break;
                 }
 
                 SafeRelease (&outputType);
             }
-
-            if (FAILED (hr)) DBGAPI(hr);
 
             return hr;
         }

@@ -18,15 +18,12 @@ namespace mole {
         /** Audio codec.  */
         class WMATransform
         {
-            MediaFormat mediaFormat;
-
             COMLibrary library;
             MFPlatform platform;
 
             IMFTransform* transform = nullptr;
 
-            DWORD inputStreamID = 0;
-            DWORD outputStreamID = 0;
+            DWORD streamID = 0;
 
             public:
 

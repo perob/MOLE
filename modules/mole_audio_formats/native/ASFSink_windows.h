@@ -319,8 +319,6 @@ namespace mole {
                 if (SUCCEEDED (hr)) hr = byteStream->Write (data, dataSize, &count);
                 if (data) buffer->Unlock();
 
-                jassert (dataSize == count);
-
                 return hr;
             }
 
