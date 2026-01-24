@@ -103,7 +103,7 @@ namespace mole {
                 }
                 else
                 {
-                    transform.AddRef();
+                    transform->AddRef();
                 }
             }
 
