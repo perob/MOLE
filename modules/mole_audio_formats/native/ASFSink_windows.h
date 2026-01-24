@@ -99,6 +99,7 @@ namespace mole {
                     numChannels = 0;
                     bitsPerSample = 0;
 
+                    transform = nullptr;
                     SafeRelease (&byteStream);
                 }
                 else
