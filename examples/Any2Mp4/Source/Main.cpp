@@ -18,10 +18,10 @@ int help()
     printf ("    --mp2       Transcode to MP2 file format with MPEG Layer 2 audio.\n");
     printf ("    --mp1       Transcode to MP1 file format with MPEG Layer 1 audio.\n");
     printf ("    --flac      Transcode to MP4 file format with FLAC audio.\n");
-    printf ("    --wma8      Transcode to WMA file format with Windows Media Audio 8 audio.\n");
-    printf ("    --wma9      Transcode to WMA file format with Windows Media Audio 9 audio.\n");
-    printf ("    --wmal      Transcode to WMA file format with Windows Media Audio Lossless audio.\n");
-    printf ("    --wmsp      Transcode to WMA file format with Windows Media Audio Voice audio.\n");
+    printf ("    --wma8      Transcode to ASF file format with Windows Media Audio 8 audio.\n");
+    printf ("    --wma9      Transcode to ASF file format with Windows Media Audio 9 audio.\n");
+    printf ("    --wmal      Transcode to ASF file format with Windows Media Audio Lossless audio.\n");
+    printf ("    --wmsp      Transcode to ASF file format with Windows Media Audio Voice audio.\n");
     printf ("    --kbps NUM  Set kilobits per second.\n");
     printf ("    --vbrq NUM  Set variable bitrate quality.\n");
     printf ("    --help      Show this message and exit.\n");
@@ -77,8 +77,7 @@ int wmain (int argc, wchar_t* argv[])
 
     if (kbps && vbrq) return usage (L"kbps/vbrq");
 
-    printf ("Input file: '%ls'\n", input);
-    printf ("Output file: '%ls'\n", output);
+    printf ("Transcode: '%ls' -> '%ls'\n", input, output);
 
     juce::File inputFile (juce::File::getCurrentWorkingDirectory()
             .getChildFile (juce::String (input)));
