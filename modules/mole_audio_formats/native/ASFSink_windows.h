@@ -101,6 +101,10 @@ namespace mole {
 
                     SafeRelease (&byteStream);
                 }
+                else
+                {
+                    transform.AddRef();
+                }
             }
 
             ~ASFSink() override

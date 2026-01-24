@@ -32,13 +32,9 @@ namespace mole {
 
             if (SUCCEEDED (hr))
             {
-                transform->AddRef();
-
-                juce::AudioFormatWriter* sink = new (std::nothrow) ASFSink (
+                return new (std::nothrow) ASFSink (
                     mediaFormat, std::exchange (stream, {}).release(),
                     rate, chan, bits, transform);
-
-                return sink;
             }
 
             DBGAPI(hr);
