@@ -19,19 +19,19 @@ Demonstrates how to perform simple audio transcoding.
 * `--mp3`
     - Transcode to MP3 file format with MPEG Layer 3 audio.
 * `--mp2`
-    - Transcode to MP2 file format with MPEG Layer 2 audio.
+    - Transcode to MPEG file format with MPEG Layer 2 audio.
 * `--mp1`
-    - Transcode to MP1 file format with MPEG Layer 1 audio.
+    - Transcode to MPEG file format with MPEG Layer 1 audio.
 * `--flac`
     - Transcode to MP4 file format with FLAC audio.
 * `--wma8`
-    - Transcode to WMA file format with Windows Media Audio 8 audio.
+    - Transcode to ASF file format with Windows Media Audio 8 audio.
 * `--wma9`
-    - Transcode to WMA file format with Windows Media Audio 9 audio.
+    - Transcode to ASF file format with Windows Media Audio 9 audio.
 * `--wmal`
-    - Transcode to WMA file format with Windows Media Audio Lossless audio.
+    - Transcode to ASF file format with Windows Media Audio Lossless audio.
 * `--wmsp`
-    - Transcode to WMA file format with Windows Media Audio Voice audio.
+    - Transcode to ASF file format with Windows Media Audio Voice audio.
 * `--kbps NUM`
     - Set kilobits per second.
 * `--vbrq NUM`
