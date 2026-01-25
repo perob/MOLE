@@ -15,8 +15,8 @@ int help()
     printf ("Options:\n");
     printf ("    --mp4       Transcode to MP4 file format with AAC audio (default).\n");
     printf ("    --mp3       Transcode to MP3 file format with MPEG Layer 3 audio.\n");
-    printf ("    --mp2       Transcode to MP2 file format with MPEG Layer 2 audio.\n");
-    printf ("    --mp1       Transcode to MP1 file format with MPEG Layer 1 audio.\n");
+    printf ("    --mp2       Transcode to MPEG file format with MPEG Layer 2 audio.\n");
+    printf ("    --mp1       Transcode to MPEG file format with MPEG Layer 1 audio.\n");
     printf ("    --flac      Transcode to MP4 file format with FLAC audio.\n");
     printf ("    --wma8      Transcode to ASF file format with Windows Media Audio 8 audio.\n");
     printf ("    --wma9      Transcode to ASF file format with Windows Media Audio 9 audio.\n");
@@ -43,7 +43,7 @@ int wmain (int argc, wchar_t* argv[])
     const wchar_t* input = nullptr;
     const wchar_t* output = nullptr;
 
-    enum AudioFormat { MP4, MP3, MP2, MP1, FLAC, WMA8, WMA9, WMAL, WMSP, AC3 };
+    enum AudioFormat { MP4, MP3, MP2, MP1, FLAC, WMA8, WMA9, WMAL, WMSP };
     AudioFormat target = AudioFormat::MP4;
 
     for (int i = 1, argLast = argc - 1; i < argc; ++i)
@@ -117,51 +117,48 @@ int wmain (int argc, wchar_t* argv[])
         printf ("Error creating audio format reader.\n");
         return 1;
     }
-    else
+
+    std::unique_ptr<juce::AudioFormat> audioFormat = nullptr;
+
+    switch (target)
     {
-        std::unique_ptr<juce::AudioFormat> audioFormat = nullptr;
-
-        switch (target)
-        {
-            case MP4: audioFormat.reset (new MP4AudioFormat()); break;
-            case MP3: audioFormat.reset (new MP3AudioFormat()); break;
-            case MP2: audioFormat.reset (new MP2AudioFormat()); break;
-            case MP1: audioFormat.reset (new MP1AudioFormat()); break;
-            case FLAC: audioFormat.reset (new FLACAudioFormat()); break;
-            case WMA8: audioFormat.reset (new WMA8AudioFormat()); break;
-            case WMA9: audioFormat.reset (new WMA9AudioFormat()); break;
-            case WMAL: audioFormat.reset (new WMALosslessAudioFormat()); break;
-            case WMSP: audioFormat.reset (new WMAVoiceAudioFormat()); break;
-            case AC3: audioFormat.reset (new AC3AudioFormat()); break;
-            default:
-                      audioFormat.reset (new MP4AudioFormat());
-                      break;
-        }
-
-        int option = (kbps) ? kbps : vbrq;
-
-        std::unique_ptr<juce::AudioFormatWriter> writer (
-                audioFormat->createWriterFor (outputStream,
-                    juce::AudioFormatWriterOptions{}
-                    .withSampleRate (reader->sampleRate)
-                    .withNumChannels (reader->numChannels)
-                    .withBitsPerSample (reader->bitsPerSample)
-                    .withQualityOptionIndex (option)
-                    ));
-
-        if (writer == nullptr)
-        {
-            printf ("Error creating audio format writer.\n");
-            return 1;
-        }
-        else
-        {
-            if (writer->writeFromAudioReader (*reader, 0, -1))
-                printf ("Transcode completed successfully.\n");
-            else
-                printf ("Transcode failed.\n");
-        }
+        case MP4: audioFormat.reset (new MP4AudioFormat()); break;
+        case MP3: audioFormat.reset (new MP3AudioFormat()); break;
+        case MP2: audioFormat.reset (new MP2AudioFormat()); break;
+        case MP1: audioFormat.reset (new MP1AudioFormat()); break;
+        case FLAC: audioFormat.reset (new FLACAudioFormat()); break;
+        case WMA8: audioFormat.reset (new WMA8AudioFormat()); break;
+        case WMA9: audioFormat.reset (new WMA9AudioFormat()); break;
+        case WMAL: audioFormat.reset (new WMALosslessAudioFormat()); break;
+        case WMSP: audioFormat.reset (new WMAVoiceAudioFormat()); break;
+        default:
+                  audioFormat.reset (new MP4AudioFormat());
+                  break;
     }
 
-    return 0;
+    int option = (kbps) ? kbps : vbrq;
+
+    std::unique_ptr<juce::AudioFormatWriter> writer (
+            audioFormat->createWriterFor (outputStream,
+                juce::AudioFormatWriterOptions{}
+                .withSampleRate (reader->sampleRate)
+                .withNumChannels (reader->numChannels)
+                .withBitsPerSample (reader->bitsPerSample)
+                .withQualityOptionIndex (option)
+                ));
+
+    if (writer == nullptr)
+    {
+        printf ("Error creating audio format writer.\n");
+        return 1;
+    }
+
+    const bool success = writer->writeFromAudioReader (*reader, 0, -1);
+
+    if (success)
+        printf ("Transcode completed successfully.\n");
+    else
+        printf ("Transcode failed.\n");
+
+    return (success) ? 0 : 1;
 }
