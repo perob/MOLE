@@ -74,7 +74,7 @@ namespace mole {
             juce::StringArray getQualityOptions() override
             {
                 return {
-                    "0 - 192 kbps mono, 224 kbps stereo, 160 kbps LSF",
+                    "0 - 192 kbps mono, 224 kbps stereo, 160 kbps LSF"
                 };
             }
 

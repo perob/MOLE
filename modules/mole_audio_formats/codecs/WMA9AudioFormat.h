@@ -81,7 +81,7 @@ namespace mole {
             juce::StringArray getQualityOptions() override
             {
                 return {
-                    "0 - 96 kbps per channel",
+                    "0 - 96 kbps per channel"
                 };
             }
 
