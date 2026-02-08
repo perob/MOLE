@@ -46,6 +46,8 @@ int wmain (int argc, wchar_t* argv[])
     enum AudioFormat { MP4, MP3, MP2, MP1, FLAC, WMA8, WMA9, WMAL, WMSP };
     AudioFormat target = AudioFormat::MP4;
 
+    if (argc < 3) return usage();
+
     for (int i = 1, argLast = argc - 1; i < argc; ++i)
     {
         if (wcsstr (argv[i], L"--") == argv[i])
